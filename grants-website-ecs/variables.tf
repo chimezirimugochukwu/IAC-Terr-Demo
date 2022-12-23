@@ -7,3 +7,5 @@ variable "private_app_subnet1_cidr" {}
 variable "private_app_subnet2_cidr" {}
 variable "private_data_subnet1_cidr" {}
 variable "private_data_subnet2_cidr" {}
+variable "domain_name" {}
+variable "alternative_name" {}
