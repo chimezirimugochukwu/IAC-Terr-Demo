@@ -38,3 +38,10 @@ module "securtiy-group" {
   source = "../modules/security-groups"
   vpc_id = module.vpc.vpc_id
 }
+
+# create iam role
+
+module "ecs-task-execution-role" {
+  source        = "../modules/ecs-task-execution-role"
+  project_name  = module.vpc.project_name
+}
