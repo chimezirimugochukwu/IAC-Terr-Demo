@@ -3,7 +3,7 @@ resource "aws_eip" "eip_for_nat_gateway_1" {
   vpc    = true
 
   tags   = {
-    Name = " Nat gateway EIP"
+    Name = " Nat gateway EIP 1"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_eip" "eip_for_nat_gateway_2" {
   vpc    = true
 
   tags   = {
-    Name = " Nat gateway EIP"
+    Name = " Nat gateway EIP 2"
   }
 }
 
