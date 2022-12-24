@@ -65,3 +65,17 @@ module "alb" {
   vpc_id                = module.vpc.vpc_id
   certificate_arn       = module.acm.certificate_arn   
 }
+
+# creates the ECS Fargate
+
+module "ecs" {
+  source                      = "../modules/ecs"
+  project_name                = module.vpc.project_name
+  ecs_task_execution_role_arn = module.ecs-task-execution-role.ecs_task_execution_role_arn
+  container_image             = var.container_image
+  region                      = module.vpc.region
+  private_app_subnet1_id      = module.vpc.private_app_subnet1_id
+  private_app_subnet2_id      = module.vpc.private_app_subnet2_id
+  ecs_security_group_id       = module.securtiy-group.ecs_security_group_id
+  alb_target_group_arn        = module.alb.alb_target_group_arn
+}
