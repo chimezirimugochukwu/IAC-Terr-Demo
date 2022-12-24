@@ -10,3 +10,5 @@ variable "private_data_subnet2_cidr" {}
 variable "domain_name" {}
 variable "alternative_name" {}
 variable "container_image" {}
+variable "ecs_cluster_name" {}
+variable "ecs_service_name" {}

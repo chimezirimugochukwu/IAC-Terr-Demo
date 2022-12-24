@@ -79,3 +79,11 @@ module "ecs" {
   ecs_security_group_id       = module.securtiy-group.ecs_security_group_id
   alb_target_group_arn        = module.alb.alb_target_group_arn
 }
+
+# creates an auto scaling group
+
+module "asg" {
+  source = "../modules/asg"
+  ecs_cluster_name = var.ecs_cluster_name
+  ecs_service_name = var.ecs_service_name
+}
