@@ -1,5 +1,12 @@
 version: 0.2
 
+env:
+  parameter-store:
+    - SECRET_TOKEN: "ACCESS_KEY_ID"
+    - SECRET_TOKEN: "SECRET_ACCESS_KEY"
+    - SECRET_TOKEN: "PROFILE_NAME"
+    - SECRET_TOKEN: "Region" 
+    
 phases:
   install:
     runtime-versions:
