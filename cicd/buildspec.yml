@@ -1,12 +1,5 @@
 version: 0.2
 
-env:
-  parameter-store: # securely pass variables in the build project
-    SECRET_ID: "ACCESS_KEY_ID"
-    SECRET_KEY: "SECRET_ACCESS_KEY"
-    SECRET_NAME: "PROFILE_NAME"
-    SECRET_REGION: "Region" 
-    
 phases:
   install:
     runtime-versions:
