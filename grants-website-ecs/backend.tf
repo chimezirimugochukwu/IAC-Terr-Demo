@@ -1,7 +1,7 @@
 # store the terraform state file in s3
 terraform {
   backend "s3" {
-    bucket    = "ricks876-terraform-remote-state-demo"
+    bucket    = "group2-nausicaa-global-terraform-state"
     key       = "grants-website-ecs.tfstate"
     region    = "eu-west-1"
     profile   = "default"
