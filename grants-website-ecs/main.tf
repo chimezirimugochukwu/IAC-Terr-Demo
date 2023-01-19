@@ -69,21 +69,44 @@ module "alb" {
 # creates the ECS Fargate
 
 module "ecs" {
-  source                      = "../modules/ecs"
-  project_name                = module.vpc.project_name
-  ecs_task_execution_role_arn = module.ecs-task-execution-role.ecs_task_execution_role_arn
-  container_image             = var.container_image
-  region                      = module.vpc.region
-  private_app_subnet1_id      = module.vpc.private_app_subnet1_id
-  private_app_subnet2_id      = module.vpc.private_app_subnet2_id
-  ecs_security_group_id       = module.securtiy-group.ecs_security_group_id
-  alb_target_group_arn        = module.alb.alb_target_group_arn
+  source                        = "../modules/ecs"
+  project_name                  = module.vpc.project_name
+  ecs_task_execution_role_arn   = module.ecs-task-execution-role.ecs_task_execution_role_arn
+  container_image               = var.container_image
+  backend_container_image       = var.backend_container_image
+  region                        = module.vpc.region
+  private_app_subnet1_id        = module.vpc.private_app_subnet1_id
+  private_app_subnet2_id        = module.vpc.private_app_subnet2_id
+  ecs_security_group_id         = module.securtiy-group.ecs_security_group_id
+  alb_target_group_arn          = module.alb.alb_target_group_arn 
+  
+}
+
+# creates ec2 resources
+
+module "ec2" {
+  source                      = "../modules/ec2"
+  private_subnet1             = module.vpc.private_app_subnet1_id
+  public_subnet1              = module.vpc.public_subnet1_id
+  bastion_host_security_group = module.securtiy-group.bastion_host_security_group
+  private_ec2_security_group  = module.securtiy-group.private_ec2_security_group
 }
 
 # creates an auto scaling group
 
 module "asg" {
-  source = "../modules/asg"
-  ecs_cluster_name = var.ecs_cluster_name
-  ecs_service_name = var.ecs_service_name
+  source            = "../modules/asg"
+  ecs_service       = module.ecs.ecs_service
+  ecs_cluster_name  = var.ecs_cluster_name
+  ecs_service_name  = var.ecs_service_name
+}
+
+# creates an A record
+
+module "route-53" {
+  source        = "../modules/route-53"
+  zone_id       = var.zone_id
+  domain_name   = module.acm.domain_name
+  alb_dns_name  = module.alb.alb_dns_name
+  alb_zone_id   = module.alb.alb_zone_id
 }

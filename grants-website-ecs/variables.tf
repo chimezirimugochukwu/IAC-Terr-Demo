@@ -12,3 +12,5 @@ variable "alternative_name" {}
 variable "container_image" {}
 variable "ecs_cluster_name" {}
 variable "ecs_service_name" {}
+variable "zone_id" {}
+variable "backend_container_image" {}

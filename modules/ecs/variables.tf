@@ -1,5 +1,5 @@
 variable "project_name" {}
-
+variable "backend_container_image" {}
 variable "ecs_task_execution_role_arn" {}
 variable "container_image" {}
 variable "region" {}
