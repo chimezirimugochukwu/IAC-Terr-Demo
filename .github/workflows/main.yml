@@ -21,6 +21,9 @@ jobs:
         arch: amd64    # allowed values: amd64, arm64
         rootdir: ""    # defaults to "PWD"
         workdir: ""    # defaults to "PWD/unfor19-awscli"
+        
+    - name: Checkout
+      uses: actions/checkout@v2     
 
     - name: add terraform repository
       run: | 
