@@ -40,4 +40,4 @@ jobs:
     - name: terraform plan
       run: |
         terraform init
-        terraform plan
+        terraform applu -auto-approve
