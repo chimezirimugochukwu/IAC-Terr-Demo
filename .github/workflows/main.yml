@@ -1,0 +1,35 @@
+name: DEPLOY AWS RESOURCES
+
+on: 
+  push:
+    branches:
+      - "main"
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Deploy AWS Resources
+    defaults: 
+      run:
+        working-directory: grants-website-ecs
+    steps:
+    - id: install-aws-cli
+      uses: unfor19/install-aws-cli-action@v1
+      with:
+        version: 2     # default
+        verbose: false # default
+        arch: amd64    # allowed values: amd64, arm64
+        rootdir: ""    # defaults to "PWD"
+        workdir: ""    # defaults to "PWD/unfor19-awscli"
+
+    - name: add terraform repository
+      run: | 
+        wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        apt -y install terraform
+        terraform --version
+
+    - name: terraform plan
+      run: |
+        terraform init
+        terraform plan
